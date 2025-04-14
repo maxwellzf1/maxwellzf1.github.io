@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Your title here</title>
+    <meta name="description" content="A brief description of your site for search engines">
+    <meta name="author" content="Information about the author here">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <link rel="icon" type="image/png" href="favicon.png">
+  
+    <!-- Stylesheets -->
+    <!-- Reset default styles and add support for google fonts -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet" type="text/css" />
+    <link href="http://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css" />
+   
+    <!-- Custom styles -->
+    <link href="../style.css" rel="stylesheet" type="text/css" />
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>    
+
+    <!-- MathJax support -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <header id="header">
+        <h1>Maxwell Feng</h1>
+        
+        <!-- Menu link fragment #id should match a div id. Example: <a href="#home"> links to <div id="home"></div>  -->
+        <ul class="main-menu">
+          <li><a href="../index.html">home</a></li>
+          <!-- <li><a href="../about.html">about</a></li> -->
+          <li><a href="../contact.html">contact</a></li>
+          <li><a href="../blog.html">blog</a></li>
+        </ul>                 
+      </header>
+  <main>
+    <div id="container">
+        <div class="inner blog-posts">
+            <div id="content"> 
+                <h3>First Blog + Favorite Probability Problem</h3> 
+                <p class="date">Apr 14, 2025</p>
+                <p>
+                Hello everyone. Welcome to my blog. I've had a lot of free time to kill recently, so I thought about blogging about things that I find interesting.
+
+                Since I'm a college student and most of my classes are about ML, I will most likely be posting about related papers or cool topics that I've learned.
+
+                Also, I want to test my own understanding of concepts and papers, so I believe that writing out my thoughts and being able to explain what I'm thinking will be a testimony to how well I understand.
+                </p>
+                <p>
+                For my first post, it's 2 am in the morning, so I'll post something quick that I recall and find fun. It will be my favorite probability problem.
+                </p>
+                <p>
+                The problem as is as follows:
+                </p>
+
+                <p>
+                Suppose you are on a 1-dimensional number line and you start at the point \(x = 0\). Every round, you pick a real number uniformly on the interval \([0, 1]\) and move to the right by this number.
+
+                In expectation, how many rounds does it take to move out of the interval \([0, 1]\) (or simply just past the point \(x = 1\))?
+                </p>
+
+                <p>
+                Spoiler alert: the answer is \(e\). Knowing the answer beforehand makes the problem seem much more beautiful and interesting though. 
+                
+                How can such a simple problem have a strange expression like \(e\)? Before starting the problem, my first instinct was that the answer should be around \(2\).
+
+                It makes sense that if you're picking uniformly between \([0, 1]\), then you should be picking close to \(0.5\) many times, so in expectation, you just need to pick twice to get \(0.5 + 0.5 \geq 1\).
+
+                However, thinking a little more makes you realize that \(2\) cannot be right. The first pick must be less than \(1\), so the number of picks must be at least two. Thus, averaging out all possible combinations, the expectation should be larger than 2.
+                </p>
+
+                <p>
+                So we have some intuition that the answer should be close to \(2\) but not exactly \(2\). Now, let's try to formalize the problem.
+
+                Suppose \(X\) is the random variable that represents the number of picks that we need to get past \(x = 1\). Note that \(X\) can only take on
+
+                natural numbers. Then, there exists a very useful lemma that tells us
+                </p>
+                \[
+                \mathbb{E}[X] = \sum_{k = 1}^{\infty} \mathbb{P}[X \geq k]
+                \]
+                <p>
+                If you stare at the lemma long enough, it starts to make sense. Imagine if you write out the right hand side. We would get something of the form
+                </p>
+                \[
+                (\mathbb{P}[X = 1] + \mathbb{P}[X = 2] + ...) + (\mathbb{P}[X = 2] + \mathbb{P}[X = 3] + ...) + ... = 1 \cdot \mathbb{P}[X = 1] + 2 \cdot \mathbb{P}[X = 2] + ... = \mathbb{E}[X]
+                \]
+                <p>
+                Ok cool so we've reduced our problem to solving several probabilities. Now let's think more carefully about \(\mathbb{P}[X \geq k]\). In English, this is the odds
+
+                that we take at least \(k\) picks before getting past \(x = 1\). This is equivalent to the odds that we are unable to get past \(x = 1\) in the first \(k - 1\) picks.
+
+                Now let's define some new random variables \(Y_i\). Let \(Y_i\) be the value of the \(i\)th pick, so we have that \(Y_i \sim \mathcal{U}([0, 1])\). Then, note that
+                </p>
+                \[
+                \mathbb{P}[X \geq k] = \mathbb{P}[Y_1 + Y_2 + ... + Y_{k - 1} < 1]
+                \]
+                <p>
+                Now here's the cool part. These random variables \(Y_i\) can take on values between \(0\) and \(1\), so we can envision each random variable as a number line between \(0\) and \(1\).
+
+                So surely \(\mathbb{P}[Y_i < 1] = 1\) since we can only pick on this number line. What about \(Y_1 + Y_2\)? Well, we can think about that as a cube over two-dimensions with boundary points \((0, 0), (1, 0), (0, 1), (1, 1)\). And then, \(\mathbb{P}[Y_1 + Y_2 < 1]\) is simply just the area 
+
+                under the line \(y = x\) divided by the area of the square, which is just \(1\)! Thus, we know that \(\mathbb{P}[Y_1 + Y_2 < 1] = \frac{1}{2}\).
+                </p>
+                <p>
+                Can we extend this to higher dimensions? Yes we can. In fact, \(\mathbb{P}[\sum_i^{k - 1} Y_i < 1]\) is simply the volume of the tetrahedron connected by the points \(e_i\) (\(e_i\) is the point with all zeros except for the \(i\) coordinate which is 1)
+                
+                divided by the volume of the hypercube in \(k - 1\) dimensions, which is \(1\). So now our problem has reduced down to just calculating the volume of a tetrahedron.
+
+                If we test 3-dimensions, then we can do some brute force calculations see that the volume is \(\frac{1}{6}\), so we can kind of guess that the volume should be \(\frac{1}{(k - 1)!}\) in the \((k - 1)\)th dimension.
+                </p>
+                <p>
+                This can be proven by induction. The proof is slightly long, so I won't list it here, but there are multiple ways to prove it. I believe our probability class
+
+                did it using Fubini's Theorem, but it is a very classic geometry problem that can be solved many ways.
+                </p>
+                <p>
+                A cheese (and very very informal proof) solution would be to assume that \(\mathbb{P}[\sum_i^{k} Y_i < a] = \frac{1}{k!}a^k\) (which can be proven). Note
+
+                that this is the CDF of the random variable corresponding to the summation of all the \(Y_i\)'s, so we need to take derivative to find the PDF. Suppose \(f\) is the PDF.
+
+                We then have that \(\mathbb{P}[\sum_i^{k} Y_i < 1] = \int_0^1 f_{k - 1}(a) \mathbb{P}[Y_k < 1 - a] da\), which tells us that
+                </p>
+                \[
+                \mathbb{P}[\sum_i^{k} Y_i < 1] = \int_{0}^1 \frac{a^{k - 2}}{(k - 2)!}(1 - a) da = \frac{1}{k!}
+                \]
+                <p>
+                Now, we are fully ready to solve the problem. Going back to our earlier equation, we have that
+                </p>
+                \[
+                \mathbb{E}[X] = \sum_{i = 1}^{\infty} \mathbb{P}[X \geq k] = \mathbb{P}[X \geq 1] + \mathbb{P}[X \geq 2] + ... = 1 + 1 + \frac{1}{2} + \frac{1}{6} + ...
+                \]
+                <p>
+                Now, we've encountered a new problem. Surely this summation converges, but what does it converge to? Calculus, power series, convergence series and are my greatest weaknesses, so I have no idea, but 
+
+                Google tells us that \(e = \sum_{i = 0}^{\infty} \frac{1}{i!}\), which leads us to our final answer \(\boxed{e}\).
+                </p>
+                <p>
+                The reason this is my favorite probability problem is because I first saw a variation of it on my MIT PRIMES Math problem set, which asked the following problem:
+                </p>
+                <p>
+                Suppose you are on a 1-dimensional number line and you start at the point \(x = 0\). Every round, you pick a real number uniformly on the interval \([-1, 1]\) and move by this number (left if it is negative).
+
+                In expectation, how many rounds does it take to move out of the interval \([-1, 1]\)?
+                </p>
+                <p>
+                Although this problem looks very similar, the solution is rather nontrivial. I would recommend trying to solve this problem or at least ponder about it for some time, but I will say 
+                
+                that the solution involves solving an ODE and is not as simplistic or beautiful as \(e\) (although it may contain \(e\) in the solution).
+                </p>
+                <p>
+                I did some research on the problem and found the simpler version that I introduced earlier in a textbook. As a dumb high school student, I didn't really understand the solution and ended up guessing \(e^2\) on my application.
+                </p>
+                <p>
+                A few years after the MIT PRIMES application, I entered college and enrolled in a probability class, and the exact same simpler problem showed up. The other homework problems led 
+
+                up to the solution (proving the lemma was the previous problem), so it was much clearer and easier to see the solution. 
+
+                A few days later, I showed my friend the problem from class, and he told me that it was a classic quant interview question, which intrigued me even more.
+                </p>
+                <p>
+                Although the problem statement is very simple, the solution is also very simple and quite elegant, resulting in an even more beautiful solution. This is why this is my favorite probability question.
+                </p>
+            </div>
+        </div>
+    </div>
+  </main>
+  <footer>
+    © 2025 Maxwell Feng
+  </footer>
+</body>
+</html>

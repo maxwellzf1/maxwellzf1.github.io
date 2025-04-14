@@ -93,8 +93,7 @@ blockquote p:last-child {
 /* Full size background image */
 html, #container, .inner { background-color:transparent;}
 html {
-  background:url(background_color.jpg) center center no-repeat fixed;
-  background-size:cover;
+  background: #ffc0cb;
 }
 body {
   max-width:800px;
@@ -137,5 +136,40 @@ ul.main-menu li a.active {
   display:block;
 }
 
+.header {
+  display: flex;
+  justify-content: space-between; /* pushes text left and image right */
+  align-items: center; /* centers vertically */
+  max-width: 800px; /* or whatever your body width is */
+  margin: 0 auto; /* centers the whole header block */
+  padding: 0 20px; /* optional: some side padding */
+}
 
 
+.logo {
+  width: 200px; /* or smaller if you want */
+  height: auto;
+  object-fit: cover; /* keeps it neat */
+  border-radius: 8px; /* optional: gives it rounded corners */
+}
+
+.blog-posts {
+  margin-top: 2rem;
+}
+
+.post {
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #444; /* thin divider between posts */
+}
+
+.post h3 {
+  font-size: 2.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.post .date {
+  font-size: 1.4rem;
+  color: #aaa;
+  margin-bottom: 1rem;
+}
