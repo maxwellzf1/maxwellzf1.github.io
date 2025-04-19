@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Maxwell Feng</title>
+    <meta name="description" content="A brief description of your site for search engines">
+    <meta name="author" content="Information about the author here">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <link rel="icon" type="image/png" href="favicon.png">
+  
+    <!-- Stylesheets -->
+    <!-- Reset default styles and add support for google fonts -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet" type="text/css" />
+    <link href="http://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css" />
+   
+    <!-- Custom styles -->
+    <link href="../style.css" rel="stylesheet" type="text/css" />
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>    
+
+    <!-- MathJax support -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <header id="header">
+        <h1>Maxwell Feng</h1>
+        
+        <!-- Menu link fragment #id should match a div id. Example: <a href="#home"> links to <div id="home"></div>  -->
+        <ul class="main-menu">
+          <li><a href="../index.html">home</a></li>
+          <!-- <li><a href="../about.html">about</a></li> -->
+          <li><a href="../contact.html">contact</a></li>
+          <li><a href="../blog.html">blog</a></li>
+        </ul>                 
+      </header>
+  <main>
+    <div id="container">
+        <div class="inner blog-posts">
+            <div id="content"> 
+                <h3>Intro to VAE's</h3> 
+                <p class="date">Apr 17, 2025</p>
+                <p>
+                    Hello everyone. Finals are coming up, so I've been prepping for one of my classes 10-708 Probabilistic Graphical Models (highly recommend btw). The class
+
+                    covers three main concepts of ML: representation, inference, and learning. My favorite part of the class were the sampling methods, like MCMC, rejection sampling, importance sampling.
+
+                    The second part of the class covers variational inference, which is a method to approximate posterior functions. I'm a bit more rusty on these topics, so I'll write a blog post to see how much I actually understand.
+                </p>
+                <h4>
+                    Variational Inference
+                </h4>
+                <p>
+                    When I first learned VI, the symbols made my head spin. It built on some entropy term, which I didn't know, and KL divergence, which I was very unfamiliar with.
+                
+                    I talked for a few hours with ChatGPT, and I gained a little bit more intuition.
+                </p>
+                <p>
+                    Recall one of the main ideas of ML: if we want to fit a model \(p\) to some data \(X\), we should try to maximize the log likelihood \(\sum_x \log p(x)\).
+
+                    Now here is the main idea of Variational Inference. Consider some latent variables \(z\). Now, from simple Bayes' Rule, we have that
+                </p>
+                \[
+                p(z | x) = \frac{p(x | z)p(z)}{p(x)} = \frac{p(x | z)p(z)}{\int_z p(x | z) p(z) dz} = \frac{p(x | z)p(z)}{Z}
+                \]
+                <p>
+                    where \(Z\) is the normalization constant (or partition function). If we want to find the posterior \(p(z | x)\), we need to compute the normalization constant, which requires us to compute a nasty integral, which is usually intractable.
+
+                    Thus, we devise a new strategy where we approximate \(p(z | x)\) using a distribution \(q(z | x)\) that is easier to compute. We can think of this as minimizing the KL divergence
+
+                    \(\text{KL}(q(z | x) || p(z | x))\).
+                </p>
+                <p>
+                    Ok, so we have some idea of what we're trying to solve. Now, after some neat algebra, we have that
+                </p>
+                \[
+                \text{KL}(q(z | x) || p(z | x)) = \mathbb{E}_{q}[\log q(z | x)] - \mathbb{E}_{q}[\log p(z | x)] = \mathbb{E}_{q}[\log q(z | x)] - \mathbb{E}_{q}[\log p(z, x)] + \mathbb{E}_{q}[\log p(x)]
+                \]
+                \[
+                = \mathbb{E}_{q}[\log q(z | x)] - \mathbb{E}_{q}[\log p(z, x)] + \log p(x)
+                \]
+                <p>
+                    Thus, we get that
+                </p>
+                \[
+                \log p(x) = \text{KL}(q(z | x) || p(z | x)) + \mathbb{E}_{q}[\log \frac{p(z, x)}{q(z | x)}]
+                \]
+                <p>
+                    This tells us a few things.
+
+                    First, note that by definition of convergence, our KL divergence term must be non-negative, so we have that \(\log p(x) \geq \mathbb{E}_{q}[\log \frac{p(z, x)}{q(z | x)}]\). We now have a lower-bound on our log-likelihood.
+
+                    Second, note that if we try to maximize our log-likelihood, we are essentially trying to maximize the term on the right. But we are also trying to minimize the KL divergence term
+
+                    since we are trying to find a distribution \(q(z | x)\) that is close to \(p(z | x)\). Thus, we get that maximizing our log-likelihood is equivalent to maximizing the expectation term.
+                
+                    This leads us directly to VAE's.
+                </p>
+                <h4>
+                    VAE's (Variational Autoencoders)
+                </h4>
+                <p>
+                    As a preliminary setup, we need to create some functions. If the setup is not very intuitive, don't worry and just try to follow along. We need a prior and and a likelihood that are simple and easy to sample from. Typically, we can just choose normal distributions.
+                </p>
+                <p>
+                    Just like with any generative model, we want to construct a model \(p(x)\) that emulates the input distribution. Then, to generate a sample, we can sample from \(p(x)\).
+                
+                    So now we're trying to construct a model such that \(\log p(x)\) is maximized. As we stated above, this is equivalent to maximizing \(\mathbb{E}_{q}[\log \frac{p(z, x)}{q(z | x)}]\).
+
+                    Let's first write this expectation in a different form. Note that \(\mathbb{E}_{q}[\log \frac{p(z, x)}{q(z | x)}] = \mathbb{E}_{q}[\log p(x | z)p(z)] - \mathbb{E}_{q}[\log q(z | x)] = \mathbb{E}_{q}[\log p(x | z)] - \text{KL}_{q}(q(z | x) || p(z))\).
+                    
+                    This form gives us some more intuition. If we want to maximize this term, then we want to maximize the expectation term and minimize the KL term.
+                </p>
+                <p>
+                    Let's start with the expectation term. Intuitively, we are optimizing \(q\) and \(p\) so that we can sample from \(q\) using some \(x\) to get some variable in the latent space, and then reconstruct this \(x\) using \(p\) and our sampled \(z\).
+
+                    This is called the reconstruction term. If our expectation is high, this is telling us that \(q\) and \(p\) go hand in hand.
+                </p>
+                <p>
+                    Now, looking at the KL term, we want our \(q\) to be close to our prior \(p(z)\). We can treat this as some regularization term so that we don't learn some crazy complicated distribution \(q (z | x)\).
+
+                    Now we have the intuition of what we want to do, so now let's actually try to optimize this loss more rigorously.
+                </p>
+                <p>
+                    In ML, how do we optimize functions? Gradient descent. We can simply take the negative of the expectation and run gradient descent to minimize it. We have a few problems though. First, we're computing the gradient of the expectation term, which requires us to take the derivative of our distribution \(q\), which can be very difficult to calculate. Also, we're optimizing over 
+
+                    multiple variables since we constructed our model \(p\) and created a distribution \(q\). This leads us to the idea of Expectation-Maximization.
+                </p>
+                <h4>
+                    Expectation-Maximization
+                </h4>
+                <p>
+
+                </p>
+                <h4>
+                    Additional Thoughts on Latent Space
+                </h4>
+                <p>
+                    The idea of latent space was very abstract to me (since we never observe it), so I always thought this idea was some bs. However, after thinking about the latent space using classification tasks, it was much easier to visualize. I'll try to explain it how I understand it.
+                </p>
+                <p>
+                    Suppose our task is to generate pictures of animals, and we are given a lot of labeled data. Then, we can think of our latent space as some representation of the animals. Try to visualize our latent space as several modes (like big hills).
+
+                    Now, the peak of each hill represents the point in the latent space that corresponds to a specific animal. If we have a perfect encoder (\(q\)) and a perfect decoder (\(p\)), then we should be mapping an image of a horse to the exact point in the latent space.
+
+                    This means that we should be mapping this \(x\) to the point \(z\) where the \(z\) corresponds to a horse. This is the highest point of the hill. Now, if our decoder is perfect, once it sees this \(z\), it should construct a beautiful image of a horse.
+
+                    This leads us to the idea of the latent space being some kind of representation of the data. If we want an image of half horse and half cat, then we can first find the top of the hill for a horse, then find the top of the hill for the cat, and then take the midpoint of these two points. 
+                    
+                    This is exactly taking the midpoint of the means that we output from the neural network.
+                </p>
+                <p>
+                    The idea of taking the midpoint is called latent space interpolation. I plan to run some experiments to see if my understanding is correct. Perhaps I will include it as an additional blog post.
+                </p>
+                <p>
+                    Also, just some additional thoughts on the encoder-decoder architecture. When we train our encoders and decoders, we are trying to build this latent space and these hills and interpreting these hills as images. My professor once said that if you play tennis or chess against someone much better or much worse than you, you will never improve. You should be playing against someone with similar strength. I believe he was talking about GAN's, but the idea still applies.
+                
+                    If your encoder is too good, then even if the decoder is kinda dogshit, it will still be able to reconstruct a good image. If your encoder is too bad, then regardless of how good the decoder is, the image will be mapped to some random point in the latent space, and the decoder will have no idea how to reconstruct the image.
+
+                    That's why we need the encoder and decoder to have similar strength. I hypothesize this impacts the initialization of these models, but I have yet to run my own tests, so I'm unsure.
+                </p>
+            </div>
+        </div>
+    </div>
+  </main>
+  <footer>
+    © 2025 Maxwell Feng
+  </footer>
+</body>
+</html>
