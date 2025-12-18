@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Maxwell Feng</title>
+    <meta name="description" content="A brief description of your site for search engines">
+    <meta name="author" content="Information about the author here">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <link rel="icon" type="image/png" href="favicon.png">
+  
+    <!-- Stylesheets -->
+    <!-- Reset default styles and add support for google fonts -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet" type="text/css" />
+    <link href="http://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css" />
+   
+    <!-- Custom styles -->
+    <link href="../style.css" rel="stylesheet" type="text/css" />
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>    
+
+    <!-- MathJax support -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <header id="header">
+        <h1>Maxwell Feng</h1>
+        
+        <!-- Menu link fragment #id should match a div id. Example: <a href="#home"> links to <div id="home"></div>  -->
+        <ul class="main-menu">
+            <li><a href="../index.html">home</a></li>
+            <li><a href="../contact.html">contact</a></li>
+            <li><a href="../projects.html">projects</a></li>
+            <li><a href="../blog.html">blog</a></li>
+        </ul>                 
+      </header>
+  <main>
+    <div id="container">
+        <div class="inner blog-posts">
+            <div id="content"> 
+                <h3>Pickleball Flight</h3> 
+                <p class="date">Dec 17, 2025</p>
+                <p>
+                    This project is a class project for the CMU course 15-418 Parallel Computer Architecture and Programming. 
+                    The course covers basics of parallel programming, including threading, SIMD programming, and GPU programming. The course also covers 
+                    system-level issues of parallelism, including synchronization and cache coherency.
+                </p>
+                <p>
+                    Our project involved rendering a ball (supposed to be a pickleball) that collides with air particles that hinder its
+                    movement. On CPU, we can only render up to 3000 air particles without much stalling. With CUDA, we can render around 1 million particles.
+                    The general idea to improve speedup was creating spatial grids, mapping each particle to a thread, and only checking neighboring
+                    particles for each thread.
+                </p>
+                <p>
+                    Our project involved writing a project proposal, milestone report, and a final report, which can be found below:
+                </p>
+                
+                <ul>
+                    <li>
+                        <a href="../pdfs/15618_Project_Proposal.pdf" target="_blank">
+                            Project Proposal
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../pdfs/15618_Project_Milestone.pdf" target="_blank">
+                            Milestone Report
+                        </a>
+                    </li>
+                    <li>
+                        <a href="../pdfs/15618_Project_Report.pdf" target="_blank">
+                            Project Report
+                        </a>
+                    </li>
+                    
+                  </ul>
+                <p>
+                    The code can be found <a href="https://github.com/DZhang95/pickleball">here</a>.
+                </p>
+                <p>
+                    Below are some examples of our project:
+                </p>
+                <p>
+                    Rendering with 1 million air particles:
+                </p>
+                <video controls width="640">
+                    <source src="../videos/1M.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                </video>
+                <p>
+                    Rendering with 1 million air particles with wind:
+                </p>
+                <video controls width="640">
+                    <source src="../videos/1M_Wind.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+    </div>
+  </main>
+  <footer>
+    © 2025 Maxwell Feng
+  </footer>
+</body>
+</html>
