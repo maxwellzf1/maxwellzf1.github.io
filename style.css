@@ -179,3 +179,8 @@ ul.main-menu li a.active {
   margin-left: auto;
   margin-right: auto;
 }
+
+.course-list {
+  margin-left: 1.2rem;
+  line-height: 1.6;
+}
