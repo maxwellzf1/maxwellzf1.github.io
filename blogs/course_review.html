@@ -41,13 +41,31 @@
             <div id="content"> 
                 <h3>CMU Course Review</h3> 
                 <p class="date">Dec 18, 2025</p>
-                <p>
+                <p class="paragraph-text">
                   I entered CMU in Fall 2022 and graduated in December 2025. Below, I'll list the courses I took, courses I wished I took, 
                   and just general thoughts about CMU.
                 </p>
-                <h4>
+                <p class="paragraph-text"">
+                  Each class will fall into 3 different categories:
+                </p>
+                <ul class="course-list paragraph-text">
+                  <li>
+                    <span class="icon icon-heart" title="Loved">♥</span>
+                    Loved it, would highly recommend
+                  </li>
+                  <li>
+                    <span class="icon icon-thumb" title="Approved">👍</span>
+                    It's ok, will learn a decent amount but not super interesting
+                  </li>
+                  <li>
+                    <span class="icon icon-x" title="No">✕</span>
+                    Do not take this class
+                  </li>
+                </ul>
+                
+                <h3>
                   CMU Course Schedule
-                </h4>
+                </h3>
                 <h5>
                   Fall 2025
                 </h5>
@@ -114,7 +132,111 @@
                   <li><strong>21-295</strong>: Putnam Seminar</li>
                   <li><strong>82-333</strong>: Introduction to Chinese Language and Culture</li>
                 </ul>
-                
+                <h3>
+                  Course Review
+                </h3>
+                <h4>
+                  Fall 2025
+                </h4>
+                <h5 class="header-text">
+                  <span class="icon icon-x" title="No">✕</span> 15-281: Artificial Intelligence: Representation and Problem Solving
+                </h5>
+                <p class="paragraph-text">
+                  The content is extremely shallow. The purpose of the course is to serve as an introduction to AI, but the class glosses over most topics without 
+                  ever explaining motivation. It makes it very difficult to understand what the professor is trying to accomplish or teach.
+                </p>
+                <p class="paragraph-text">
+                  It does cover a wide range of topics, like probability, logic, PGM, RL, game theory, but I think it's better to take the classes that go more 
+                  into depth for each of these topics. I believe this class is no longer offered at CMU.
+                </p>
+                <h5 class="header-text">
+                  <span class="icon icon-heart" title="Loved">♥</span> 15-418: Parallel Computer Architecture and Programming
+                </h5>
+                <p class="paragraph-text">
+                  Before coming to CMU, I thought computer science would be very hardware oriented since computer hardware is very intricate. However, the CS 
+                  curriculum at CMU is extremely software oriented. The only course (that I've taken) that discusses hardware in the computer science department is 
+                  15-213, which gives a very brief overview of how processors and memory work.
+                </p>
+                <p class="paragraph-text">
+                  This class forces you to think about how software directly affects hardware and programming around hardware limitations, like 
+                  data bandwidth or small RAM space. Programming is done on the Gates clusters, which use NVIDIA RTX 2080 GPU's and Intel i7 CPU's. Programming 
+                  assignments do not have hard thresholds and are mainly judged on your performance compared to your peers. To optimize your program, you usually 
+                  need to run experiments on CPU processors, check how much data is in your working set, calculate the data transfer speed between CPU and GPU, 
+                  and then decide if running an algorithm on CPU or GPU is more efficient. I found that doing these theoretical calculations that were surprisingly 
+                  close to experimental results actually yielded benefits and helped us with our design choices. Also, the class gives some experience with 
+                  low-level programming using C++ and CUDA, which could be beneficial in the workplace.
+                </p>
+                <h4>
+                  Spring 2025
+                </h4>
+                <h5 class="header-text">
+                  <span class="icon icon-thumb" title="Approved">👍</span>10-422: Foundations of Learning, Game Theory, and Their Connections
+                </h5>
+                <h5 class="header-text">
+                  <span class="icon icon-heart" title="Loved">♥</span>10-708: Probabilistic Graphical Models
+                </h5>
+                <h5 class="header-text">
+                  <span class="icon icon-thumb" title="Approved">👍</span>10-725: Optimization for Machine Learning
+                </h5>
+                <h5 class="header-text">
+                  <span class="icon icon-x" title="No">✕</span>33-104: Experimental Physics
+                </h5>
+                <h4>
+                  Fall 2024
+                </h4>
+                <h5 class="header-text">
+                  <span class="icon icon-heart" title="Loved">♥</span>15-440: Distributed Systems
+                </h5>
+                <h5 class="header-text">
+                  <span class="icon icon-heart" title="Loved">♥</span>15-451: Algorithm Design and Analysis
+                </h5>
+                <h5 class="header-text">
+                  <span class="icon icon-heart" title="Loved">♥</span>21-355: Principles of Real Analysis I
+                </h5>
+                <h5 class="header-text">
+                  <span class="icon icon-thumb" title="Approved">👍</span>76-270: Writing for the Professions
+                </h5>
+                <h3>
+                  CMU Courses I Wish I Took
+                </h3>
+                <ul class="course-list">
+                  <li><strong>15-410</strong>: Operating Systems</li>
+                  <li><strong>15-411</strong>: Compiler Design</li>
+                  <li><strong>15-888</strong>: Computational Game Solving</li>
+                </ul>
+                <h5 class="header-text">
+                  <span class="lol-question">?</span>
+                  15-440 Operating Systems
+                </h5>
+                <p class="paragraph-text">
+                  This is widely regarded as the most difficult class at CMU. I felt that the course rigor at CMU was quite difficult, but 
+                  there was definitely some room for more rigor. It would have been interesting to see how intense the course really is. Also, I 
+                  believe that operating systems should be mandatory for all CS students (I guess 15-213 covers basic operating systems), and I 
+                  think this class could definitely give deeper insights on systems in general.
+                </p>
+                <h5 class="header-text">
+                  <span class="lol-question">?</span>
+                  15-441 Compiler Design
+                </h5>
+                <p class="paragraph-text">
+                  This is probably the second hardest course at CMU. Again with OS, I think this course would give deeper insights on systems in 
+                  general. My partner for 15-418 took this class the previous semester, and he briefly mentioned a multi-coloring algorithm used 
+                  for register allocation, which sounded pretty interesting.
+                </p>
+                <h5 class="header-text">
+                  <span class="lol-question">?</span>
+                  15-888 Computational Game Solving
+                </h5>
+                <p class="paragraph-text">
+                  I enjoy playing games. This course is all about playing games and creating solvers for these games. The professor is also 
+                  very well-known for creating Pluribus, which is one of the first Poker bots.
+                </p>
+                <h3>
+                  CMU General Thoughts
+                </h3>
+                <p class="paragraph-text">
+                  Coming into CMU, I was unsure what to expect. 
+                </p>
             </div>
         </div>
     </div>

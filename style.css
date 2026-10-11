@@ -181,6 +181,39 @@ ul.main-menu li a.active {
 }
 
 .course-list {
-  margin-left: 1.2rem;
+  padding-left: 1.2em;
+}
+
+.paragraph-text {
+  color: #d6d6d6;
   line-height: 1.6;
+}
+
+
+.header-text {
+  color: #F5F5F5;
+}
+
+.lol-question {
+  color: #facc15;      /* LoL-style yellow */
+  font-weight: 700;
+  margin-left: 0.3em;
+  cursor: default;
+}
+
+.icon-heart {
+  color: #ef4444;   /* clean red */
+  font-weight: 700;
+  margin-left: 0.3em;
+}
+
+.icon-x {
+  color: #dc2626;   /* slightly darker red */
+  font-weight: 700;
+  margin-left: 0.3em;
+}
+
+.icon-thumb {
+  margin-left: 0.3em;
+  font-size: 0.95em; /* keeps it visually balanced */
 }
